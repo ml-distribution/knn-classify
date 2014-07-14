@@ -79,6 +79,11 @@
 			<artifactId>mrunit</artifactId>
 			<version>0.8.0-incubating</version>
 		</dependency>
+		<dependency>
+			<groupId>args4j</groupId>
+			<artifactId>args4j</artifactId>
+			<version>2.0.16</version>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -126,7 +131,7 @@
 				<configuration>
 					<archive>
 						<manifest>
-							<mainClass>zx.soft.navie.bayes.driver.NavieBayesDriver</mainClass>
+							<mainClass>zx.soft.knn.classify.driver.KnnClassifyDriver</mainClass>
 						</manifest>
 					</archive>
 					<descriptorRefs>

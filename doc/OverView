@@ -1,0 +1,11 @@
+In data mining applications and spatial and multimedia databases, a useful tool is the kNN join, 
+which is to produce the k nearest neighbors (NN), from a dataset S, of every point in a dataset R. 
+Since it involves both the join and the NN search, performing kNN joins efficiently is a challenging task. 
+Meanwhile, applications continue to witness a quick (exponential in some cases) increase in the 
+amount of data to be processed. A popular model nowadays for large-scale data processing is the 
+shared-nothing cluster on a number of commodity machines using MapReduce . Hence, how to execute 
+kNN joins efficiently on large data that are stored in a MapReduce cluster is an intriguing problem 
+that meets many practical needs. This work proposes novel (exact and approximate) algorithms in 
+MapReduce to perform efficient parallel kNN joins on large data. We demonstrate our ideas using Hadoop. 
+Extensive experiments in large real and synthetic datasets, with tens or hundreds of millions of records 
+in both R and S and up to 30 dimensions, have demonstrated the efficiency, effectiveness, and scalability of our methods.
