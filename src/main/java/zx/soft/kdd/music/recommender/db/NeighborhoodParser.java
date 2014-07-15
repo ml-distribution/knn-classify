@@ -1,5 +1,11 @@
 package zx.soft.kdd.music.recommender.db;
 
+/**
+ * 邻节点解析
+ * 
+ * @author wanggang
+ *
+ */
 public class NeighborhoodParser extends Parser {
 
 	private Song currentSong;
@@ -29,7 +35,7 @@ public class NeighborhoodParser extends Parser {
 
 	}
 
-	private void formatSong(String dataLine) {
+	public void formatSong(String dataLine) {
 		if (dataLine != null) {
 			currentSong = songs.getSong(Integer.parseInt(dataLine));
 			if (currentSong == null) {
@@ -43,7 +49,7 @@ public class NeighborhoodParser extends Parser {
 		}
 	}
 
-	private void formatSimilarity(String dataLine) {
+	public void formatSimilarity(String dataLine) {
 		String[] splitData = dataLine.split("\t");
 		if ((splitData != null) && (splitData.length == 3)) {
 			int neighborID = Integer.parseInt(splitData[1]);
@@ -60,4 +66,5 @@ public class NeighborhoodParser extends Parser {
 			System.err.println("Unexpected format for similarity line: " + dataLine);
 		}
 	}
+
 }

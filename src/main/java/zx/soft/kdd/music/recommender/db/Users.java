@@ -6,8 +6,10 @@ import java.util.Iterator;
 import java.util.Map;
 
 /**
+ * 用户类
+ * 
+ * @author wanggang
  *
- * @author Karl Lopker
  */
 public class Users implements Iterable<User> {
 
@@ -26,7 +28,7 @@ public class Users implements Iterable<User> {
 	}
 
 	public ArrayList<User> getUserList() {
-		return (ArrayList) users.values();
+		return (ArrayList<User>) users.values();
 	}
 
 	@Override

@@ -3,8 +3,10 @@ package zx.soft.kdd.music.recommender.core;
 import java.io.FileNotFoundException;
 
 /**
+ * 推荐接口
+ * 
+ * @author wanggang
  *
- * @author Karl Lopker
  */
 public interface Recommender {
 

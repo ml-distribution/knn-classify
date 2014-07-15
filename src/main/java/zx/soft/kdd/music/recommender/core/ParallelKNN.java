@@ -20,7 +20,7 @@ import org.apache.hadoop.mapreduce.Reducer;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 
-import zx.soft.kdd.music.recommender.Main;
+import zx.soft.kdd.music.recommender.KDDMusicRecommender;
 import zx.soft.kdd.music.recommender.db.KDDParser;
 import zx.soft.kdd.music.recommender.db.Similarities;
 import zx.soft.kdd.music.recommender.db.Similarity;
@@ -30,8 +30,10 @@ import zx.soft.kdd.music.recommender.db.User;
 import zx.soft.kdd.music.recommender.db.Users;
 
 /**
+ * 并行KNN
+ * 
+ * @author wanggang
  *
- * @author ninj0x
  */
 public class ParallelKNN extends Configured implements Recommender {
 
@@ -45,7 +47,7 @@ public class ParallelKNN extends Configured implements Recommender {
 		try {
 			Configuration conf = new Configuration();
 			FileSystem fs = FileSystem.get(conf);
-			Path chunkDir = new Path(Main.getOptions().getArgumentList().get(0));
+			Path chunkDir = new Path(KDDMusicRecommender.getOptions().getArgumentList().get(0));
 			chunks = fs.listStatus(chunkDir);
 			for (FileStatus chunk : chunks) {
 				runCalc(chunk.getPath(), chunks);
@@ -61,7 +63,7 @@ public class ParallelKNN extends Configured implements Recommender {
 		//        try {
 		//            Configuration conf = new Configuration();
 		//            FileSystem fs = FileSystem.get(conf);
-		//            Path chunkDir = new Path(Main.getOptions().getArgumentList().get(0));
+		//            Path chunkDir = new Path(KDDMusicRecommender.getOptions().getArgumentList().get(0));
 		//
 		//        } catch (IOException ex) {
 		//            Logger.getLogger(ParallelKNN.class.getName()).log(Level.SEVERE, null, ex);
@@ -180,7 +182,7 @@ public class ParallelKNN extends Configured implements Recommender {
 		DistributedCache.addCacheFile(myChunk.toUri(), conf);
 
 		conf.set(MY_CHUNK_NAME_ID, myChunk.getName());
-		conf.setInt(THRESHOLD, Main.getOptions().getRatingCountThreshold());
+		conf.setInt(THRESHOLD, KDDMusicRecommender.getOptions().getRatingCountThreshold());
 		Job job;
 		try {
 			job = new Job(conf, "KNNParallelRecommender");
@@ -232,7 +234,7 @@ public class ParallelKNN extends Configured implements Recommender {
 	}
 
 	private Path getOutputPath(Configuration conf, Path chunk) {
-		String outputDir = Main.getOptions().getArgumentList().get(1);
+		String outputDir = KDDMusicRecommender.getOptions().getArgumentList().get(1);
 		int indexOfExtension = chunk.getName().lastIndexOf(".");
 		outputDir += "/";
 		outputDir += chunk.getName().substring(0, indexOfExtension);
@@ -251,4 +253,5 @@ public class ParallelKNN extends Configured implements Recommender {
 			Logger.getLogger(ParallelKNN.class.getName()).log(Level.SEVERE, null, ex);
 		}
 	}
+
 }

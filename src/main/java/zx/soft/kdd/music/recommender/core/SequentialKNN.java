@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Scanner;
 
-import zx.soft.kdd.music.recommender.Main;
+import zx.soft.kdd.music.recommender.KDDMusicRecommender;
 import zx.soft.kdd.music.recommender.db.KDDParser;
 import zx.soft.kdd.music.recommender.db.NeighborhoodParser;
 import zx.soft.kdd.music.recommender.db.Parser;
@@ -17,19 +17,22 @@ import zx.soft.kdd.music.recommender.db.User;
 import zx.soft.kdd.music.recommender.db.Users;
 
 /**
+ * 连续KNN
+ * 
+ * @author wanggang
  *
- * @author sarahejones, sns
  */
 public class SequentialKNN implements Recommender {
+
 	/*
 	 * could precompute this w/ map reduce: finding k nearest neighbors
 	 */
-
 	@Override
 	public void createNeighborhoods() {
+
 		// initalize lists.
-		int k = Main.getOptions().getK();
-		Parser parser = new KDDParser(Main.getOptions().getDatabasePath());
+		//		int k = KDDMusicRecommender.getOptions().getK();
+		Parser parser = new KDDParser(KDDMusicRecommender.getOptions().getDatabasePath());
 
 		Songs songs = new Songs();
 		Users users = new Users();
@@ -77,7 +80,7 @@ public class SequentialKNN implements Recommender {
 				 * recommend...
 				 */
 				double sim = numerator / Math.sqrt(denominator_left * denominator_right);
-				if (userCount > Main.getOptions().getRatingCountThreshold()) {
+				if (userCount > KDDMusicRecommender.getOptions().getRatingCountThreshold()) {
 					Similarity is = new Similarity(j, sim);
 					i.getNeighborhood().insert(is);
 				}
@@ -91,29 +94,33 @@ public class SequentialKNN implements Recommender {
 	}
 
 	@Override
-	public void recommendSong(String activeUserFile, double threshold) throws FileNotFoundException {
+	public void recommendSong(String activeUserFile, double threshold) {
+
 		Songs songs = new Songs();
 		Users users = new Users();
-		ArrayList<User> activeUsers = new ArrayList<User>();
+		ArrayList<User> activeUsers = new ArrayList<>();
 
-		Parser kddParser = new KDDParser(Main.getOptions().getDatabasePath());
+		Parser kddParser = new KDDParser(KDDMusicRecommender.getOptions().getDatabasePath());
 		kddParser.parse(songs, users);
 
-		Parser nbrParser = new NeighborhoodParser(Main.getOptions().getNeighborhoodFilePath()); //alternatively print out users that rated that item
+		Parser nbrParser = new NeighborhoodParser(KDDMusicRecommender.getOptions().getNeighborhoodFilePath()); //alternatively print out users that rated that item
 		nbrParser.parse(songs, users);
-		FileInputStream file = new FileInputStream(activeUserFile);
-		Scanner in = new Scanner(file);
+
 		int line;
 		User u;
-		while (in.hasNext()) {
-			line = Integer.parseInt(in.nextLine());
-			u = users.getUser(line);
-			if (u == null) {
-				System.out.println("Invalid user id");
-				continue;
-			}
+		try (Scanner in = new Scanner(new FileInputStream(activeUserFile));) {
+			while (in.hasNext()) {
+				line = Integer.parseInt(in.nextLine());
+				u = users.getUser(line);
+				if (u == null) {
+					System.out.println("Invalid user id");
+					continue;
+				}
 
-			activeUsers.add(u);
+				activeUsers.add(u);
+			}
+		} catch (FileNotFoundException e) {
+			throw new RuntimeException(e);
 		}
 
 		//recommendation
@@ -143,4 +150,5 @@ public class SequentialKNN implements Recommender {
 			}
 		}
 	}
+
 }

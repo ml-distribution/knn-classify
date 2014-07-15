@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 
-import zx.soft.kdd.music.recommender.Main;
+import zx.soft.kdd.music.recommender.KDDMusicRecommender;
 
 /**
  * @author sarahejones, sns
@@ -15,7 +15,7 @@ public class Similarities implements Iterable<Similarity> {
 	private final ArrayList<Similarity> neighbors;
 
 	public Similarities() {
-		k = Main.getOptions().getK();
+		k = KDDMusicRecommender.getOptions().getK();
 		neighbors = new ArrayList<Similarity>();
 	}
 

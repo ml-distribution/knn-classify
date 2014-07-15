@@ -12,10 +12,12 @@ import zx.soft.kdd.music.recommender.core.SequentialKNN;
 import zx.soft.kdd.music.recommender.process.Preprocessing;
 
 /**
+ * 主类
+ * 
+ * @author wanggang
  *
- * @author Karl Lopker
  */
-public class Main {
+public class KDDMusicRecommender {
 
 	private static KNNOptions options = new KNNOptions();
 
@@ -23,6 +25,9 @@ public class Main {
 		return options;
 	}
 
+	/**
+	 * 主函数
+	 */
 	public static void main(String args[]) {
 
 		// Parse the command line options
@@ -89,4 +94,5 @@ public class Main {
 		pp.parse();
 		pp.close();
 	}
+
 }
