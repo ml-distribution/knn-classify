@@ -15,15 +15,13 @@
  * limitations under the License.
  */
 
-package org.apache.mahout.knn.search;
+package zx.soft.mahout.knn.search;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.util.List;
-
-import junit.framework.Assert;
 
 import org.apache.mahout.math.DenseMatrix;
 import org.apache.mahout.math.DenseVector;
@@ -41,6 +39,7 @@ import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 
 public abstract class AbstractSearchTest {
+
 	protected static Matrix randomData() {
 		Matrix data = new DenseMatrix(1000, 20);
 		MultiNormal gen = new MultiNormal(20);
@@ -105,7 +104,7 @@ public abstract class AbstractSearchTest {
 		for (MatrixSlice slice : queries) {
 			Vector query = slice.vector();
 			final Vector epsilon = noise.sample();
-			List<WeightedThing<Vector>> r0 = s.search(query, 2);
+			//			List<WeightedThing<Vector>> r0 = s.search(query, 2);
 			query = query.plus(epsilon);
 			List<WeightedThing<Vector>> r = s.search(query, 2);
 			r = s.search(query, 2);
@@ -181,8 +180,8 @@ public abstract class AbstractSearchTest {
 
 			// vectors don't show up in iterator
 			for (Vector v : s) {
-				Assert.assertTrue(x.get(0).minus(v).norm(1) > 1e-8);
-				Assert.assertTrue(x.get(1).minus(v).norm(1) > 1e-8);
+				assertTrue(x.get(0).minus(v).norm(1) > 1e-8);
+				assertTrue(x.get(1).minus(v).norm(1) > 1e-8);
 			}
 		} else {
 			try {

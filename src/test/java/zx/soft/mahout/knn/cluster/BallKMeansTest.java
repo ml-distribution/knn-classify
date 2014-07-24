@@ -1,4 +1,4 @@
-package org.apache.mahout.knn.cluster;
+package zx.soft.mahout.knn.cluster;
 
 import static org.junit.Assert.assertEquals;
 

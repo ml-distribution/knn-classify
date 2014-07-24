@@ -1,4 +1,4 @@
-package org.apache.mahout.knn.cluster;
+package zx.soft.mahout.knn.cluster;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -8,7 +8,7 @@ import java.util.List;
 
 import org.apache.mahout.common.Pair;
 import org.apache.mahout.common.distance.EuclideanDistanceMeasure;
-// import org.apache.mahout.knn.search.Brute;
+// import zx.soft.mahout.knn.search.Brute;
 import org.apache.mahout.math.Centroid;
 import org.apache.mahout.math.Vector;
 import org.apache.mahout.math.WeightedVector;

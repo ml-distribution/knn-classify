@@ -43,7 +43,7 @@ public class StreamingKMeans {
 
 	/**
 	 * Calls StreamingKMeans(searcher, estimatedNumClusters, initialDistanceCutoff, 1.3, 10, 0.2).
-	 * @see StreamingKMeans#StreamingKMeans(org.apache.mahout.knn.search.UpdatableSearcher, int, double, double, double, double)
+	 * @see StreamingKMeans#StreamingKMeans(zx.soft.mahout.knn.search.UpdatableSearcher, int, double, double, double, double)
 	 */
 	public StreamingKMeans(UpdatableSearcher searcher, int estimatedNumClusters, double initialDistanceCutoff) {
 		this(searcher, estimatedNumClusters, initialDistanceCutoff, 1.3, 10, 0.2);

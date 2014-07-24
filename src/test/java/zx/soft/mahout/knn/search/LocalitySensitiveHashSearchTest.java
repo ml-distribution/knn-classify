@@ -1,4 +1,4 @@
-package org.apache.mahout.knn.search;
+package zx.soft.mahout.knn.search;
 
 import java.util.BitSet;
 import java.util.List;
@@ -100,4 +100,5 @@ public class LocalitySensitiveHashSearchTest {
 			}
 		}
 	}
+
 }
